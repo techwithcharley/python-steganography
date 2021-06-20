@@ -1,11 +1,8 @@
 from PIL import Image
-import time
 
 class Stego():
     def __init__(self):
-        self.hide_size = Image.open(self.hide)
-        self.hide_size = self.hide_size.size
-        print(self.hide_size)
+        print('Parent class accessed')
 
     def ImageAnalyser(self,carrier):
         self.userin = Image.open(carrier)
@@ -38,22 +35,29 @@ class Stego():
         return self.bin_array
 
 class Encode(Stego):
+    print('Encode class accessed')
     def __init__(self,cover,hide,outfile):
         self.cover = cover
         self.hide = hide
         self.outfile = outfile
         Stego.__init__(self)
+        print('Inputs: ',cover,hide,outfile)
         
         def ImageEncoder(self,cover,hide,outfile):
-            self.hide = hide
+            print('ImageEncoder accessed')
             self.cover_size = Image.open(self.cover)
             self.cover_size = self.cover_size.size
+            self.hide_size = Image.open(self.hide)
+            self.hide_size = self.hide_size.size
             self.cover_RGB = self.ImageAnalyser(self.cover)
             self.hide_RGB = self.ImageAnalyser(self.hide)
             self.cover_bin = self.ArrayConverter(self.cover_RGB)
             self.hide_bin = self.ArrayConverter(self.hide_RGB)
             self.make = Image.new('RGB', self.cover_size, 'white')
-            self.binary_array,self.hide_array,self.op_array,self.RGB = [],[],[],[]
+            self.binary_array = []
+            self.hide_array = []
+            self.op_array = []
+            self.RGB = []
             self.timer = 0
             self.count = 3
 
@@ -90,13 +94,17 @@ class Encode(Stego):
         output = ImageEncoder(self,cover,hide,outfile)
 
 class Decode(Stego):
+    print('Decode class accessed')
     def __init__(self,hide,Object,output):
         self.hide = hide
         self.object = Object
         self.output = output
         Stego.__init__(self)
+        self.hide_size = Image.open(self.hide)
+        self.hide_size = self.hide_size.size
         self.object_RGB = self.ImageAnalyser(self.object)
         self.object_bin = self.ArrayConverter(self.object_RGB)
+        print('Inputs: ',hide,Object,output)
 
         def ImageDecoder(self,hide,Object,output):
             self.make = Image.new('RGB', self.hide_size, 'white')
@@ -126,5 +134,5 @@ class Decode(Stego):
 
         decoded = ImageDecoder(self,hide,Object,output)
 
-Im_Encoded = Encode('Images/cover.bmp','Images/hide.bmp','Images/object.bmp')
-Im_Decoded = Decode('Images/hide.bmp','Images/object.bmp','Images/retrieved.bmp')
+Im_Encoded = Encode('cover.bmp','hide.bmp','object.bmp')
+Im_Decoded = Decode('hide.bmp','object.bmp','retrieved.bmp')

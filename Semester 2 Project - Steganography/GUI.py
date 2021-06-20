@@ -1,10 +1,11 @@
 import tkinter
-import Steganography (Lean)
+import Steganography
 
 window = tkinter.Tk()
 window.title("Stego")
 window.geometry("300x300")
-window.wm_iconbitmap('favicon.ico')
+icon = "P:\Programs\Fork\Steganography\Semester 2 Project - Steganography\icon.ico"
+window.wm_iconbitmap(icon)
 window.configure(background='white')
 
 def Kill():
@@ -26,27 +27,30 @@ def hideCallBack():
     window = tkinter.Tk()
     window.title("Hide")
     window.geometry("300x300")
-    window.wm_iconbitmap('favicon.ico')
+    window.wm_iconbitmap(icon)
 
     window.configure(background='light blue')
     hide_1= tkinter.Button(window,text='Upload Image',command= uploadCallBack)
     hide_1.place(x=10,y= 50, width=280, height=30)
-    hide_back = tkinter.Button(window,text='back', fg='red')
+    hide_back = tkinter.Button(window,text='back', fg='red',command= backCallBack)
     hide_back.place(x=10,y=200, width=280, height=30)
 
 def recoverCallBack():
     window = tkinter.Tk()
     window.title("Stego")   
     window.geometry("300x300")
-    window.wm_iconbitmap('favicon.ico')
+    window.wm_iconbitmap(icon)
     window.configure(background='violet')
     recover_1= tkinter.Button(window,text='Retrive Image',command= retriveCallBack)
     recover_1.place(x=10,y= 50, width=280, height=30)
     recover_back = tkinter.Button(window,text='back', fg='red')
     recover_back.place(x=10,y=200, width=280, height=30)
+
+def backCallBack():
+    window.destroy()
     
 def retriveCallBack():
-    SteganographyClass.Retrive()
+    SteganographyClass.Retrieve()
     
     
 def uploadCallBack():
